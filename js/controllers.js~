@@ -4,14 +4,11 @@
     /* Controllers */
 
     // Global "database"
-		// Figure out how to query myphpadmin
     var itemList = [
-        {id: 1, title: 'Donald or Bush', question: 'Would you rather be ruled by incompetence or terror?'},
-        {id: 2, title: 'Ronald or Kush', question: 'Would you rather be ruled by nonhopetence or merror?'},
-        {id: 3, title: 'Ponald or Dush', question: 'Would you rather be ruled by lemonescence or Sarrah?'},
+        {id: 1, name: 'Knurled widget', stock: 23},
+        {id: 2, name: 'Sky hook', stock: 1},
+        {id: 3, name: 'Feathered codpiece', stock: 111}
     ];
-
-
 
     var itemsControllers = angular.module('itemsControllers', []);
 
