@@ -1,6 +1,6 @@
 <!doctype html>
 <!-- A rudimentary 2-view Angular app, for SENG365 2014. RJL. -->
-<html lang="en" ng-app="pollsApp">
+<html lang="en" ng-app="itemsApp">
 <head>
   <meta charset="utf-8">
   <title>Polls</title>

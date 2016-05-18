@@ -3,24 +3,24 @@
 
     /* App Module */
 
-    var itemsApp = angular.module('itemsApp', [
+    var pollsApp = angular.module('pollsApp', [
       'ngRoute',
-      'itemsControllers'
+      'pollsControllers'
     ]);
 
-    itemsApp.config(['$routeProvider',
+    pollsApp.config(['$routeProvider',
       function($routeProvider) {
         $routeProvider.
-          when('/items', {
-            templateUrl: 'partials/item-list.html',
-            controller: 'ItemListCtrl'
+          when('/polls', {
+            templateUrl: 'partials/poll-list.html',
+            controller: 'PollListCtrl'
           }).
-          when('/items/:itemId', {
-            templateUrl: 'partials/item-detail.html',
-            controller: 'ItemDetailCtrl'
+          when('/polls/:pollId', {
+            templateUrl: 'partials/poll-detail.html',
+            controller: 'PollDetailCtrl'
           }).
           otherwise({
-            redirectTo: '/items'
+            redirectTo: '/polls'
           });
       }]);
 }())

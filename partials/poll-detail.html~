@@ -1,0 +1,21 @@
+<h1>Poll for <span>{{poll.title}}</span></h1>
+<ul>
+    <li>Id: {{ poll.id }}</li>
+    <li>Title: {{ poll.title }} </li>
+    <li>Question: {{ poll.question }}</li>
+</ul>
+
+<form>
+	<div ng-repeat="(choice, votes) in choices">
+		<!-- Get key of object -->
+		<input type="radio" ng-value="choice" ng-model="$parent.choice" />{{ choice }} :
+			<span ng-bind="$parent.choices[choice]"></span> votes<br />
+	</div>
+	<input type ="submit" value="Vote" ng-click="vote()">
+</form>
+<button value="Reset votes" ng-click="reset()"></button>
+	<br />
+<a href="index.html">Home</a>
+
+
+
