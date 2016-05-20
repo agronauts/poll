@@ -31,7 +31,6 @@ class Choice extends CI_Model {
         foreach ($rows as $row) {
             $choice = new Choice();
             $choice->load($row);
-            echo '\n'.$choice->choice;
             $list[] = $choice;
         }
         return $list;
@@ -43,8 +42,6 @@ class Choice extends CI_Model {
     // first char to lower case.
     private function load($row) {
         foreach ((array) $row as $field => $value) {
-            echo 'field'.$field;
-            echo 'value'.$value;
             $fieldName = strtolower($field[0]) . substr($field, 1);
             $this->$fieldName = $value;
         }

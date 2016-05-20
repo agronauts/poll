@@ -61,6 +61,11 @@ class Poll extends CI_Model {
         }
         return $list;
     }
+    
+    public function postVote($pollId, $ipAddress) {
+        // @TODO: Implement
+        return 0;
+    }
 
     // Given a row from the database, copy all database column values
     // into 'this', converting column names to fields names by converting
