@@ -14,6 +14,7 @@ class Poll extends CI_Model {
     public $title;
     public $question;
     public $choices;
+    public $votes;
 
     public function __construct() {
         $this->load->database();
@@ -39,6 +40,7 @@ class Poll extends CI_Model {
         $row = $rows[0];
         $poll->load($row); 
         $poll->choices = Choice::getChoices($poll->id);
+        $poll->votes = Choice::getVotes($poll->id);
 
                 
         return $poll;
@@ -51,20 +53,46 @@ class Poll extends CI_Model {
      * @return associative array mapping productId to product
      */
     public function listAll() {
-        $this->db->select('*');
+        $this->db->select('id');
         $rows = $this->db->get('Polls')->result();
         $list = array();
         foreach ($rows as $row) {
-            $poll = new Poll();
-            $poll->load($row);
+            $poll = Poll::read($row->id);
             $list[] = $poll;
         }
         return $list;
     }
     
-    public function postVote($pollId, $ipAddress) {
-        // @TODO: Implement
-        return 0;
+    public function postVote($pollId, $choice, $ipAddress) {
+        /* Get desired choice */
+        $choiceIds = Poll::getChoiceIds($pollId);
+        $choiceId = $choiceIds[$choice-1];
+        
+        /* Submit vote */
+        $vote = array(
+            'choice'=>  $choiceId,
+            'ip'    =>  $ipAddress
+        );
+        try {
+            $this->db->insert('Votes', $vote);
+        } catch (Exception $e) {
+            // Post was unsuccessful
+            return 0;
+        }
+        return 1;
+    }
+    
+    public function deleteVotes($pollId) {
+        $choiceIds = Poll::getChoiceIds($pollId);
+        try {
+            foreach ($choiceIds as $choiceId) {
+                $this->db->where('choice', $choiceId);
+                $this->db->delete('Votes');
+            }
+        } catch (Exception $e) {
+            return 0;
+        }
+        return 1;
     }
 
     // Given a row from the database, copy all database column values
@@ -75,6 +103,20 @@ class Poll extends CI_Model {
             $fieldName = strtolower($field[0]) . substr($field, 1);
             $this->$fieldName = $value;
         }
+    }
+    
+    private function getChoiceIds($pollId) {
+        $this->db->select('c.id');
+        $this->db->from('Polls p');
+        $this->db->join('Choices c', "c.poll=$pollId");
+        $this->db->where("p.id=$pollId");
+        $this->db->order_by("c.id");
+        $rows = $this->db->get()->result();
+        $choiceIds = array();
+        foreach ($rows as $row) {
+            $choiceIds[] = $row->id;
+        }
+        return $choiceIds;
     }
     
 };

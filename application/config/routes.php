@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
-$route['services/votes/(.*)/vote'] = "services/postVote/$1";
+$route['services/votes/(.*)/(.*)'] = "services/postVote/$1/$2";
 $route['services/(.*)'] = "services/$1";
 $route['default_controller'] = 'polls';
 $route['404_override'] = '';

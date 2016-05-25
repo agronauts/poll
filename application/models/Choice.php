@@ -23,19 +23,32 @@ class Choice extends CI_Model {
     }
     
     public static function getChoices($pollId) {
-        self::$db->select('*');
+        self::$db->select('choice');
         self::$db->where(array('poll' => $pollId));
-        self::$db->order_by("poll", "asc");
+        self::$db->order_by("id", "asc");
         $rows = self::$db->get('Choices')->result();
         $list = array();
         foreach ($rows as $row) {
-            $choice = new Choice();
-            $choice->load($row);
-            $list[] = $choice;
+            $list[] = $row->choice;
         }
         return $list;
     }
     
+    public static function getVotes($pollId) {
+        self::$db->select('c.id, COUNT(v.choice) as votes');
+        self::$db->from('Polls p');
+        self::$db->where("p.id=$pollId");
+        self::$db->join('Choices c', "c.poll=$pollId", 'left');
+        self::$db->join('Votes v', "v.choice=c.id", 'left');
+        self::$db->order_by("c.id", "asc");
+        self::$db->group_by("c.id");
+        $rows = self::$db->get()->result();
+        $list = array();
+        foreach ($rows as $row) {
+            $list[] = $row->votes;
+        }
+        return $list;
+    }
 
     // Given a row from the database, copy all database column values
     // into 'this', converting column names to fields names by converting
