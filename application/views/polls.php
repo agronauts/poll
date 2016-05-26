@@ -15,6 +15,7 @@ echo doctype('html5');
   <title>Polls</title>
   <?php
   $links = array (
+    "angularjs/scripts/jquery.min.js", 
     "angularjs/scripts/angular.js", 
     "angularjs/scripts/angular-route.js",
     "angularjs/js/app.js",

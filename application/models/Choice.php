@@ -39,7 +39,7 @@ class Choice extends CI_Model {
         self::$db->from('Polls p');
         self::$db->where("p.id=$pollId");
         self::$db->join('Choices c', "c.poll=$pollId", 'left');
-        self::$db->join('Votes v', "v.choice=c.id", 'left');
+        self::$db->join('Votes v', "v.choice=c.id AND v.poll=c.poll", 'left');
         self::$db->order_by("c.id", "asc");
         self::$db->group_by("c.id");
         $rows = self::$db->get()->result();

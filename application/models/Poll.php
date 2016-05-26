@@ -71,6 +71,7 @@ class Poll extends CI_Model {
         /* Submit vote */
         $vote = array(
             'choice'=>  $choiceId,
+            'poll'  =>  $pollId,
             'ip'    =>  $ipAddress
         );
         try {

@@ -2,47 +2,76 @@
     'use strict';
 
     /* Controllers */
-
-    // Global "database"
-		// Figure out how to query myphpadmin
-    var pollList = [
-        {id: 1, title: 'Donald or Bush', question: 'Would you rather be ruled by incompetence or terror?'},
-        {id: 2, title: 'Ronald or Kush', question: 'Would you rather be ruled by nonhopetence or merror?'},
-        {id: 3, title: 'Ponald or Dush', question: 'Would you rather be ruled by lemonescence or Sarrah?'},
-    ];
-
-		var choices = {
-			1: {'Donald': 4, 'Bush':3},
-			2: {'Ronald': 6, 'Kush':3},
-			3: {'Ponald': 3, 'Dush':2}
-		};
-
-
-
     var pollsControllers = angular.module('pollsControllers', []);
 
-    pollsControllers.controller('PollListCtrl', ['$scope', 
-        function ($scope) {
+    pollsControllers.controller('PollListCtrl', ['$scope', '$http',
+        function ($scope, $http) {
+            var resource = "/~pjn59/365/polls/index.php/services/polls";
             $scope.polls = pollList;
             $scope.author = 'Patrick Nicholls';
+            $http.get(resource)
+                    .success(function(data){
+                        $scope.polls = data;
+            })
+                    .error(function(){
+                        console.log("Couldn't get data");
+            });
         }]);
 
-    pollsControllers.controller('PollDetailCtrl', ['$scope', '$routeParams',
-      function($scope, $routeParams) {
-          $scope.pollId = $routeParams.pollId;
-					$scope.choice = undefined;
-          // Look up item in "database"
-					$scope.choices = choices[$scope.pollId];
-					$scope.vote = function() {
-						//Increment database through PHP somehow
-						$scope.choices[$scope.choice] += 1;
-					};
-					$scope.reset = function() {
-						for (var choice in $scope.choices) {
-							if ($scope.choices.hasOwnProperty(choice)) {
-								$scope.choices[choice] = 0;
-							}
-						}
-					}
+    pollsControllers.controller('PollDetailCtrl', ['$scope', '$routeParams', '$http',
+      function($scope, $routeParams, $http) {
+        $scope.pollId = $routeParams.pollId;
+        $scope.title = undefined;
+        $scope.quesiton = undefined;
+        $scope.choice = undefined;
+        var base_url = "/~pjn59/365/polls/index.php/services/";
+          
+        $http.get(base_url + "polls/" + $scope.pollId)
+                .success(function(data){
+                    console.log(data);
+                    var choices = [];
+                    for (var i = 0; i < data.choices.length; i++) {
+                        choices[i] = {
+                            'choice': data.choices[i],
+                            'votes' : parseInt(data.votes[i])
+                        };
+                    }
+                    $scope.choices = choices;
+                    $scope.question = data.question;
+                    $scope.title = data.title;
+                    console.log($scope.choices);
+        })
+                .error(function(){
+                    console.log("Couldn't get data");
+        });
+        
+        $scope.vote = function() {
+            //Increment database through PHP somehow
+            $scope.choices[$scope.choice-1].votes += 1;          
+            $http.post(base_url + "votes/" + $scope.pollId + "/" + $scope.choice)
+                    .success(function(data){
+                        console.log("Vote succeeded")
+            })
+                    .error(function(){
+                        console.log("Vote unsuccessful");
+            }); 
+        };
+        
+        $scope.reset = function() {
+            
+            for (var i = 0; i < $scope.choices.length; i++) { 
+                $scope.choices[i].votes = 0;
+            }
+                  
+            $http.delete(base_url + "votes/" + $scope.pollId)
+                    .success(function(data){
+                        console.log("Reset succeeded")
+            })
+                    .error(function(){
+                        console.log("Reset unsuccessful");
+            }); 
+        }
       }]);
+  
+    
   }())
