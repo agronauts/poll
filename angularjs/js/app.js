@@ -19,6 +19,10 @@
             templateUrl: 'angularjs/partials/poll-detail.html',
             controller: 'PollDetailCtrl'
           }).
+          when('/about', {
+            templateUrl: 'angularjs/partials/about.html',
+            controller: 'AboutCtrl'
+          }).
           otherwise({
             redirectTo: '/polls'
           });

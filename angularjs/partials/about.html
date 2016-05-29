@@ -1,0 +1,27 @@
+<!-- Jumbotron Header -->
+<header class="jumbotron hero-spacer">
+    <h1>About page</h1>
+    <p>Author: {{ author }}</p>
+    <p>Date created: Friday, May 27, 2016</p>
+    <p>Functionality: 
+        <ul>This site provides the basic functionality specified in the assignment spec. The angular SPA allows the user to navigate the site using the navbar and the boxs representing each poll. At a particular poll's page the user can vote for any option without limit as well as reset the votes. Using the JSON web services, all or individual poll can be queried and votes can be posted, deleted or retrived. There are no known bugs.
+        </ul>
+    </p>
+    <p>Design:
+        <ul>The design of the angular code was very similar to that of the provided skeleton app. The $http library was used to communicate to the backend as it allows all the HTTP methods to be used easily. The database schema consists of the Polls, Choices and Votes tables so that the data is in 3rd Normal form. This makes querying data as easy as stringing keys together.
+        </ul>
+    </p>
+    <p>Extra features: 
+        <ul> All pages have a navbar that can take them to the front and about page. On the front page each poll has a stock image dynamically created for it based off the first letter of the poll's title. Bootstrap 3 was used in styling the site.
+        </ul>
+    </p>
+    <p>Personal perspective:  
+        <ul>
+            I am proud of the work I have achieved in this assignment as I followed a good, methodical, top-down software design process and understood what I was doing at each point. Learning AngularJS was very cool not only because of its power, but also to see how frameworks are used during software development. The most difficult part was querying a count of the votes for each option, especially when the count should have been zero. This was solved by using left joins and a precise, step-by-step debugging.
+        </ul>
+    </p>
+    <p>Acknowledgements:  
+        <ul>Bootstrap template - http://startbootstrap.com/template-overviews/heroic-features/ (MIT License) </ul>
+        <ul>Stock images for polls - http://placehold.it/ </ul>
+    </p>
+</header>

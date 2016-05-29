@@ -3,15 +3,18 @@
 
     /* Controllers */
     var pollsControllers = angular.module('pollsControllers', []);
+    
+    var author = 'Patrick Nicholls';
 
     pollsControllers.controller('PollListCtrl', ['$scope', '$http',
         function ($scope, $http) {
             var resource = "/~pjn59/365/polls/index.php/services/polls";
-            $scope.polls = pollList;
-            $scope.author = 'Patrick Nicholls';
+            $scope.polls = undefined;
+            $scope.author = author;
             $http.get(resource)
                     .success(function(data){
                         $scope.polls = data;
+                
             })
                     .error(function(){
                         console.log("Couldn't get data");
@@ -73,5 +76,10 @@
         }
       }]);
   
+    
+    pollsControllers.controller('AboutCtrl', ['$scope',
+        function ($scope) {
+            $scope.author = author;
+        }]);
     
   }())

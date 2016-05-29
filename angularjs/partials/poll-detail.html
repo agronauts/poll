@@ -1,21 +1,37 @@
-<h1>Poll for <span>{{title}}</span></h1>
-<ul>
-    <li>Id: {{ pollId }}</li>
-    <li>Title: {{ title }} </li>
-    <li>Question: {{ question }}</li>
-</ul>
 
+<!-- Jumbotron Header -->
+<header class="jumbotron hero-spacer">
+    <h1>{{title}}</h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Id: {{ pollId }} </h3>
+            <h3> Title: {{ title }} </h3>
+            <h3> Question: {{ question }}</h3>
+        </div>
+    </div>
+</header>
+
+<!-- Voting options -->
 <form>
-	<div ng-repeat="option in choices">
-		<!-- Get key of object ng-value="$index" ng-model="$parent.choices[$index].choice"-->
-		<input type="radio" ng-model="$parent.choice" ng-value="$index+1"/>{{ option.choice }} :
-			<span ng-bind="$parent.choices[$index].votes"></span> votes<br />
-	</div>
-	<input type ="submit" value="Vote" ng-click="vote()">
+    <div class="row text-center">
+        <!-- Create boxs for all polls -->
+        <div class="col-md-2 col-sm-4 hero-feature" ng-repeat="option in choices">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3> 
+                        <!-- Get key of object ng-value="$index" ng-model="$parent.choices[$index].choice"-->
+                        <input type="radio" ng-model="$parent.choice" ng-value="$index+1"/>{{ option.choice }} 
+                    </h3> 
+                        <span ng-bind="$parent.choices[$index].votes"></span> votes<br />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center">
+        <input class="btn btn-primary" type="submit" value="Submit Vote" ng-click="vote()">
+        <button class="btn btn-danger" ng-click="reset()">Reset Votes</button>
+    </div>
 </form>
-<button ng-click="reset()">Reset Votes</button>
-	<br />
-<a href="index.php">Home</a>
 
 
 

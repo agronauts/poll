@@ -18,6 +18,7 @@ echo doctype('html5');
     "angularjs/scripts/jquery.min.js", 
     "angularjs/scripts/angular.js", 
     "angularjs/scripts/angular-route.js",
+    "angularjs/scripts/bootstrap.min.js",
     "angularjs/js/app.js",
     "angularjs/js/controllers.js"
     );
@@ -30,11 +31,48 @@ echo doctype('html5');
   }
   echo $scripts;
   ?>
-  <link href="angularjs/css/site.css" type="text/css" rel="stylesheet">
+    
+    <link href="angularjs/css/bootstrap.min.css" rel="stylesheet">
+    <link href="angularjs/css/heroic-features.css" rel="stylesheet">
 </head>
 <body>
+        <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#/polls/">Poll List</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#/about/">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-  <div ng-view></div>
+    <div class="container">
+    <div ng-view></div>
+        
+    <hr>
+  
+    <!-- Footer -->
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; Patrick Nicholls </p>
+            </div>
+        </div>
+    </footer>
+    </div>
 
 </body>
 </html>

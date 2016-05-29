@@ -1,7 +1,36 @@
-<h1>Home Page (aka Poll list)</h1>
-<ul>
-<li ng-repeat="poll in polls">
-  <a href="#/polls/{{poll.id}}">{{poll.title}}</a>
-</li>
-</ul>
-<p>Author: {{ author }}</p>
+<!-- Jumbotron Header -->
+<header class="jumbotron hero-spacer">
+    <h1>Every flipping voting site ever!</h1>
+    <p>Subtle references to class jokes are sure to gain extra marks! Please vote for something below.</p>
+</header>
+
+<hr>
+
+<!-- Title -->
+<div class="row">
+    <div class="col-lg-12">
+        <h3>Polls</h3>
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Page Features -->
+<div class="row text-center">
+
+    <!-- Create boxs for all polls -->
+    <div class="col-md-3 col-sm-6 hero-feature" ng-repeat="poll in polls">
+        <div class="thumbnail">
+            <!-- Funky place holder images of the first letter of the poll title, its worth the loading time -->
+            <img src="http://placehold.it/800x500/500/fff?text={{poll.title[0]}}" alt="">
+            <div class="caption">
+                <h3>{{poll.title}}</h3>
+                <p>{{poll.question}}</p>
+                <p>
+                    <a href="#/polls/{{poll.id}}" class="btn btn-primary">Vote</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
